@@ -1,0 +1,19 @@
+<graph>
+    <id>g0</id>
+    <name>My Graph</name>
+    <nodes>
+        <node><id>a</id><name>A</name></node>
+        <node><id>b</id><name>B</name></node>
+        <node><id>c</id><name>C</name></node>
+        <node><id>d</id><name>D</name></node>
+        <node><id>e</id><name>E</name></node>
+    </nodes>
+    <edges>
+        <node><id>e1</id><from>a</from><to>b</to><cost>5</cost></node>
+        <node><id>e2</id><from>a</from><to>c</to><cost>10</cost></node>
+        <node><id>e3</id><from>b</from><to>d</to><cost>1</cost></node>
+        <node><id>e4</id><from>c</from><to>d</to><cost>3</cost></node>
+        <node><id>e5</id><from>d</from><to>e</to><cost>8</cost></node>
+        <node><id>e6</id><from>a</from><to>e</to><cost>100</cost></node>
+    </edges>
+</graph>
