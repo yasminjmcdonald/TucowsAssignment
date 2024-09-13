@@ -88,7 +88,8 @@ def query(db, args):
             create_cheapest_block(cheapest_path[0], cheapest_path[1], cheapest)
         )
 
-    print(json.dumps(answer))
+    with open(args.output, "w") as handle:
+        json.dump(answer, handle)
 
 
 def main():
@@ -103,6 +104,7 @@ def main():
     query_cmd.set_defaults(func=query)
     query_cmd.add_argument('graph_id')
     query_cmd.add_argument('input')
+    query_cmd.add_argument('output')
 
     args = parser.parse_args()
 
