@@ -2,18 +2,18 @@ from database import Base
 from sqlalchemy import Column, String, ForeignKey, Float
 
 
-class Graphs(Base):
+class Graph(Base):
     __tablename__ = "graphs"
 
-    id = Column(String, primary_key=True, unique=True)
-    graph_name = Column(String, unique=True)
+    id = Column(String, primary_key=True)
+    graph_name = Column(String)
 
 
-class Edges(Base):
-    __tablename__ = 'edges'
+class Edge(Base):
+    __tablename__ = "edges"
 
-    id = Column(String, primary_key=True, unique=True)
+    graph_id = Column(String, ForeignKey("graphs.id"), primary_key=True)
+    edge_id = Column(String, primary_key=True)
     edge_to = Column(String)
     edge_from = Column(String)
     cost = Column(Float)
-    graph_id = Column(String, ForeignKey("graphs.id"))
