@@ -14,14 +14,18 @@ def loads(contents):
         raise XmlValidationError(f"id tag but not present in {contents}")
     if root.find("name") is None:
         raise XmlValidationError(f"name tag but not present in {contents}")
-    graph = {"id": root.find("id").text, "graph_name": root.find("name").text}
+
+    graph = {"id": root.find("id").text, "name": root.find("name").text}
     graph_id = graph.get("id")
+
+    nodes = []
     node_ids = set()
     for node in root.find("nodes"):
         node_id = node.find("id").text
         if node_id in node_ids:
             raise XmlValidationError("node ids are not unique")
         node_ids.add(node_id)
+        nodes.append({"id": node_id, "graph": graph_id, "name": node.find("name").text})
 
     if not node_ids:
         raise XmlValidationError("expected 1 or more nodes")
@@ -48,11 +52,11 @@ def loads(contents):
                 "edge_to": to_tag,
                 "edge_from": from_tag,
                 "cost": cost,
-                "edge_id": edge.find("id").text,
-                "graph_id": graph_id,
+                "id": edge.find("id").text,
+                "graph": graph_id,
             }
         )
-    return graph, edges
+    return graph, nodes, edges
 
 
 def find_all_paths(graph: defaultdict, start, end, path=[]):

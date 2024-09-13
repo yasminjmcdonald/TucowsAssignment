@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 import interview_test.graph_utils as graph_utils
-from interview_test.models import Edge, Graph
+from interview_test.models import Edge, Node, Graph
 
 
 SQLALCHEMY_DATABASE_URL = os.environ.get(
@@ -15,10 +15,16 @@ SQLALCHEMY_DATABASE_URL = os.environ.get(
 )
 
 
-def populate_database(db, graph, edges):
+def populate_database(db, graph, nodes, edges):
     graph_model = Graph(**graph)
     db.add(graph_model)
     db.commit()
+
+    for node in nodes:
+        node_model = Node(**node)
+        db.add(node_model)
+        db.commit()
+
     for edge in edges:
         edge_model = Edge(**edge)
         db.add(edge_model)
@@ -28,7 +34,7 @@ def populate_database(db, graph, edges):
 def get_graph_by_id(db, graph_id):
     graph = defaultdict(list)
     edges_cost = {}
-    edges = db.query(Edge).filter(Edge.graph_id == graph_id).all()
+    edges = db.query(Edge).filter(Edge.graph == graph_id).all()
     for edge in edges:
         edges_cost[(edge.edge_from, edge.edge_to)] = edge.cost
         if edge.edge_from not in graph:
@@ -66,8 +72,8 @@ def create_cheapest_block(start, end, cheapest_path):
 
 
 def load(db, args):
-    graph, edges = graph_utils.loads(args.input)
-    populate_database(db, graph, edges)
+    graph, nodes, edges = graph_utils.loads(args.input)
+    populate_database(db, graph, nodes, edges)
 
 
 def query(db, args):
@@ -96,15 +102,16 @@ def main():
     parser = argparse.ArgumentParser()
     sub_cmds = parser.add_subparsers(required=True)
 
-    load_cmd = sub_cmds.add_parser('load')
+    load_cmd = sub_cmds.add_parser('load', help='Loads graph data from XML into the database')
     load_cmd.set_defaults(func=load)
-    load_cmd.add_argument('input')
+    load_cmd.add_argument('input', help='graph XML input file')
 
-    query_cmd = sub_cmds.add_parser('query')
+    query_cmd = sub_cmds.add_parser('query', help='Queries the given graph with '
+                                                  'the paths provided in the input file')
     query_cmd.set_defaults(func=query)
-    query_cmd.add_argument('graph_id')
-    query_cmd.add_argument('input')
-    query_cmd.add_argument('output')
+    query_cmd.add_argument('graph_id', help='Id of graph')
+    query_cmd.add_argument('input', help='JSON input file with queries')
+    query_cmd.add_argument('output', help='Name of JSON output file')
 
     args = parser.parse_args()
 

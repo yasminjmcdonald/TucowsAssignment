@@ -9,14 +9,22 @@ class Graph(Base):
     __tablename__ = "graphs"
 
     id = Column(String, primary_key=True)
-    graph_name = Column(String)
+    name = Column(String)
+
+
+class Node(Base):
+    __tablename__ = "nodes"
+
+    id = Column(String, primary_key=True)
+    graph = Column(String, ForeignKey("graphs.id"), primary_key=True)
+    name = Column(String)
 
 
 class Edge(Base):
     __tablename__ = "edges"
 
-    graph_id = Column(String, ForeignKey("graphs.id"), primary_key=True)
-    edge_id = Column(String, primary_key=True)
-    edge_to = Column(String)
-    edge_from = Column(String)
+    graph = Column(String, ForeignKey("graphs.id"), primary_key=True)
+    id = Column(String, primary_key=True)
+    edge_to = Column(String, ForeignKey("nodes.id"))
+    edge_from = Column(String, ForeignKey("nodes.id"))
     cost = Column(Float)

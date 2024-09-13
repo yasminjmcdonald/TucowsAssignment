@@ -15,5 +15,6 @@
         <node><id>e4</id><from>c</from><to>d</to><cost>3</cost></node>
         <node><id>e5</id><from>d</from><to>e</to><cost>8</cost></node>
         <node><id>e6</id><from>a</from><to>e</to><cost>100</cost></node>
+        <node><id>e7</id><from>e</from><to>a</to><cost>100</cost></node>
     </edges>
 </graph>

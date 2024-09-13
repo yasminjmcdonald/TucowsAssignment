@@ -1,3 +1,6 @@
 __pycache__
 .venv
 src/interview_test.egg-info
+output.json
+input.json
+.Ds_Store
