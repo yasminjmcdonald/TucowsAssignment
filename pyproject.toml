@@ -5,6 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "interview_test"
 dynamic = ["version"]
+dependencies = [
+    "psycopg2-binary==2.9.9",
+    "SQLAlchemy==2.0.34",
+    "typing_extensions==4.12.2"
+]
 
 [project.optional-dependencies]
 test = []
@@ -17,4 +22,5 @@ version_file = "src/interview_test/version.py"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-exclude = ["interview_test.tests*"]
+# exclude = ["interview_test.tests*"]
+

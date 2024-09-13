@@ -1,5 +1,8 @@
-from database import Base
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, ForeignKey, Float
+
+
+Base = declarative_base()
 
 
 class Graph(Base):

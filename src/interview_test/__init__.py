@@ -1,18 +1,24 @@
 import argparse
 import json
+import os
 from collections import defaultdict
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 
-import graph_utils
-from models import Edge, Graph
-from database import SessionLocal
+import interview_test.graph_utils as graph_utils
+from interview_test.models import Edge, Graph
+
+
+SQLALCHEMY_DATABASE_URL = os.environ.get(
+    'SQLALCHEMY_DATABASE_URL',
+    "postgresql://postgres:test1234@localhost/GraphApplicationDatabase"
+)
 
 
 def populate_database(db, graph, edges):
-
     graph_model = Graph(**graph)
     db.add(graph_model)
     db.commit()
-
     for edge in edges:
         edge_model = Edge(**edge)
         db.add(edge_model)
@@ -20,7 +26,6 @@ def populate_database(db, graph, edges):
 
 
 def get_graph_by_id(db, graph_id):
-
     graph = defaultdict(list)
     edges_cost = {}
     edges = db.query(Edge).filter(Edge.graph_id == graph_id).all()
@@ -100,7 +105,9 @@ def main():
     query_cmd.add_argument('input')
 
     args = parser.parse_args()
-    with SessionLocal() as db:
+
+    engine = create_engine(SQLALCHEMY_DATABASE_URL)
+    with Session(engine) as db:
         args.func(db, args)
 
 
