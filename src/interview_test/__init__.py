@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 
 import interview_test.graph_utils as graph_utils
 from interview_test.database_utils import get_graph_by_id, populate_database
-from interview_test.json_utils import parse_json, create_path_block, create_cheapest_block
+from interview_test.json_utils import *
 from interview_test.models import Edge, Node, Graph
 
 
@@ -20,7 +20,13 @@ SQLALCHEMY_DATABASE_URL = os.environ.get(
 
 
 def load(db, args):
-
+    """
+    Loads graph data from graph XML into database tables.
+    Args:
+        :param db: Database session object.
+        :param args: Command line arguments.
+    Returns:
+    """
     graph, nodes, edges = graph_utils.validate_xml(args.input)
     try:
         populate_database(db, graph, nodes, edges)
@@ -29,25 +35,19 @@ def load(db, args):
 
 
 def query(db, args):
-    paths, cheapest_paths = parse_json(args.input)
-    graph_dd, edges_cost = get_graph_by_id(db, args.graph_id)
-
-    answer = {"answers": []}
-
-    for path in paths:
-        all_paths = graph_utils.find_all_paths(graph_dd, path[0], path[1])
-        answer["answers"].append(create_path_block(path[0], path[1], all_paths))
-
-    for cheapest_path in cheapest_paths:
-        cheapest = graph_utils.find_cheapest_path(
-            graph_dd, edges_cost, cheapest_path[0], cheapest_path[1]
-        )
-        answer["answers"].append(
-            create_cheapest_block(cheapest_path[0], cheapest_path[1], cheapest)
-        )
-
+    """
+    Queries graph table with queries defined in JSON input file and creates
+    JSON file with answers.
+    Args:
+        :param db: Database session object.
+        :param args: Command line arguments.
+    Returns:
+    """
+    paths, cheapest_paths = parse_query_json(args.input)
+    graph_dd, edge_cost = get_graph_by_id(db, args.graph_id)
+    answers = create_answer_json(graph_dd, edge_cost, paths, cheapest_paths)
     with open(args.output, "w") as handle:
-        json.dump(answer, handle)
+        json.dump(answers, handle)
 
 
 def main():
