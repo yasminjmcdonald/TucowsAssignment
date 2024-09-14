@@ -1,9 +1,12 @@
 import argparse
 import json
 import os
+import sys
+
 from collections import defaultdict
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 
 import interview_test.graph_utils as graph_utils
 from interview_test.models import Edge, Node, Graph
@@ -19,12 +22,10 @@ def populate_database(db, graph, nodes, edges):
     graph_model = Graph(**graph)
     db.add(graph_model)
     db.commit()
-
     for node in nodes:
         node_model = Node(**node)
         db.add(node_model)
         db.commit()
-
     for edge in edges:
         edge_model = Edge(**edge)
         db.add(edge_model)
@@ -73,7 +74,10 @@ def create_cheapest_block(start, end, cheapest_path):
 
 def load(db, args):
     graph, nodes, edges = graph_utils.loads(args.input)
-    populate_database(db, graph, nodes, edges)
+    try:
+        populate_database(db, graph, nodes, edges)
+    except IntegrityError as e:
+        sys.exit(e.orig)
 
 
 def query(db, args):
