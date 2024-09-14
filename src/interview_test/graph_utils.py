@@ -6,7 +6,18 @@ class XmlValidationError(ValueError):
     pass
 
 
-def loads(contents):
+def validate_xml(contents):
+    """
+    Validates contents of a graph XML file and returns
+    graph, nodes, and edges.
+    Args:
+        :param contents: XML file with directed graph.
+    Returns:
+        graph: Ex. {"id": "g0", "name": "Graph Name"}
+        nodes: Ex. [{"id": "a", "graph": "g0", "name": "Graph Name"}]
+        edges: Ex. [{"edge_to": "a", "edge_from": "b",
+        "cost": 0.0, "id": "e1", "graph": "g0"}]
+    """
     tree = ET.parse(contents)
     root = tree.getroot()
 
@@ -59,7 +70,19 @@ def loads(contents):
     return graph, nodes, edges
 
 
-def find_all_paths(graph: defaultdict, start, end, path=[]):
+def find_all_paths(graph: defaultdict, start, end, path=None):
+    """
+    Finds all paths between start and end node.
+    Args:
+        :param graph: Dictionary of directed graph.
+        :param start: Start node.
+        :param end: End nodes.
+        :param path: Default None.
+    Returns:
+        paths: List of paths.
+    """
+    if path is None:
+        path = []
     path = path + [start]
     if start == end:
         return [path]
@@ -72,12 +95,26 @@ def find_all_paths(graph: defaultdict, start, end, path=[]):
     return paths
 
 
-def find_cheapest_path(graph: defaultdict, edges_cost, start, end, path=[]):
+def find_cheapest_path(graph: defaultdict, edges_cost, start, end, path=None):
+    """
+    Find the cheapest path between start and end node.
+    Args:
+        :param graph: Dictionary of directed graph.
+        :param start: Start node.
+        :param end: End nodes.
+        :param edges_cost: Dictionary of edges and
+        corresponding costs.
+        :param path: Default None.
+    Returns:
+        shortest: [start, end] of cheapest path.
+    """
+    if path is None:
+        path = []
     path = path + [start]
     if start == end:
         return path
     shortest = None
-    weight: float
+    weight = None
     for node in graph[start]:
         if node not in path:
             new_path = find_cheapest_path(graph, edges_cost, node, end, path)

@@ -3,12 +3,13 @@ import json
 import os
 import sys
 
-from collections import defaultdict
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
 
 import interview_test.graph_utils as graph_utils
+from interview_test.database_utils import get_graph_by_id, populate_database
+from interview_test.json_utils import parse_json, create_path_block, create_cheapest_block
 from interview_test.models import Edge, Node, Graph
 
 
@@ -18,62 +19,9 @@ SQLALCHEMY_DATABASE_URL = os.environ.get(
 )
 
 
-def populate_database(db, graph, nodes, edges):
-    graph_model = Graph(**graph)
-    db.add(graph_model)
-    db.commit()
-    for node in nodes:
-        node_model = Node(**node)
-        db.add(node_model)
-        db.commit()
-    for edge in edges:
-        edge_model = Edge(**edge)
-        db.add(edge_model)
-        db.commit()
-
-
-def get_graph_by_id(db, graph_id):
-    graph = defaultdict(list)
-    edges_cost = {}
-    edges = db.query(Edge).filter(Edge.graph == graph_id).all()
-    for edge in edges:
-        edges_cost[(edge.edge_from, edge.edge_to)] = edge.cost
-        if edge.edge_from not in graph:
-            graph[edge.edge_from] = [edge.edge_to]
-        else:
-            graph[edge.edge_from].append(edge.edge_to)
-    return graph, edges_cost
-
-
-def parse_json(input_file):
-    with open(input_file, "r") as file:
-        data = json.load(file)
-    paths = []
-    cheapest_paths = []
-    for query in data["queries"]:
-        if "paths" in query:
-            paths.append([query["paths"]["start"], query["paths"]["end"]])
-        if "cheapest" in query:
-            cheapest_paths.append(
-                [query["cheapest"]["start"], query["cheapest"]["end"]]
-            )
-    return paths, cheapest_paths
-
-
-def create_path_block(start, end, all_paths):
-    path_block = {"paths": {"from": start, "to": end, "paths": all_paths}}
-    return path_block
-
-
-def create_cheapest_block(start, end, cheapest_path):
-    if not cheapest_path:
-        cheapest_path = False
-    cheapest_block = {"cheapest": {"from": start, "to": end, "path": cheapest_path}}
-    return cheapest_block
-
-
 def load(db, args):
-    graph, nodes, edges = graph_utils.loads(args.input)
+
+    graph, nodes, edges = graph_utils.validate_xml(args.input)
     try:
         populate_database(db, graph, nodes, edges)
     except IntegrityError as e:
