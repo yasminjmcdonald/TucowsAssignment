@@ -44,8 +44,8 @@ def query(db, args):
     Returns:
     """
     paths, cheapest_paths = parse_query_json(args.input)
-    graph_dd, edge_cost = get_graph_by_id(db, args.graph_id)
-    answers = create_answer_json(graph_dd, edge_cost, paths, cheapest_paths)
+    graph_dd, edges_cost = get_graph_by_id(db, args.graph_id)
+    answers = create_answer_json(graph_dd, edges_cost, paths, cheapest_paths)
     with open(args.output, "w") as handle:
         json.dump(answers, handle)
 

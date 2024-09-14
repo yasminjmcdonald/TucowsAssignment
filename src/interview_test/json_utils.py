@@ -60,14 +60,14 @@ def create_cheapest_block(start, end, cheapest_path):
     return {"cheapest": {"from": start, "to": end, "path": cheapest_path}}
 
 
-def create_answer_json(graph_dd, edge_cost, paths, cheapest_paths):
+def create_answer_json(graph_dd, edges_cost, paths, cheapest_paths):
     """
     Find all paths in from start to end node pairs in paths Lists.
     Finds cheapest paths between start and end node pairs in cheapest_paths
     Lists. Returns answer JSON.
     Args:
         :param graph_dd: Dictionary of directed graph.
-        :param edge_cost: Dictionary of edges and corresponding costs.
+        :param edges_cost: Dictionary of edges and corresponding costs.
         :param paths: List of paths to be queried.
         node and end node.
         :param cheapest_paths: List of cheapest paths to be queried.
@@ -82,7 +82,7 @@ def create_answer_json(graph_dd, edge_cost, paths, cheapest_paths):
 
     for cheapest_path in cheapest_paths:
         cheapest = graph_utils.find_cheapest_path(
-            graph_dd, edge_cost, cheapest_path[0], cheapest_path[1]
+            graph_dd, edges_cost, cheapest_path[0], cheapest_path[1]
         )
         answers["answers"].append(
             create_cheapest_block(cheapest_path[0], cheapest_path[1], cheapest)
