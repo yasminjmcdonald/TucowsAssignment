@@ -2,9 +2,11 @@ import argparse
 import os
 import sys
 
+from json.decoder import JSONDecodeError
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
+from xml.etree.ElementTree import ParseError
 
 import interview_test.graph_utils as graph_utils
 from interview_test.database_utils import get_graph_by_id, populate_database
@@ -26,11 +28,13 @@ def load(db, args):
         :param args: Command line arguments.
     Returns:
     """
-    graph, nodes, edges = graph_utils.validate_xml(args.input)
     try:
+        graph, nodes, edges = graph_utils.validate_xml(args.input)
         populate_database(db, graph, nodes, edges)
     except IntegrityError as e:
         sys.exit(e.orig)
+    except ParseError as e:
+        sys.exit(F"Error occurred when parsing {args.input}: {e.msg}")
 
 
 def query(db, args):
@@ -42,11 +46,14 @@ def query(db, args):
         :param args: Command line arguments.
     Returns:
     """
-    paths, cheapest_paths = parse_query_json(args.input)
-    graph_dd, edges_cost = get_graph_by_id(db, args.graph_id)
-    answers = create_answer_json(graph_dd, edges_cost, paths, cheapest_paths)
-    with open(args.output, "w") as handle:
-        json.dump(answers, handle)
+    try:
+        paths, cheapest_paths = parse_query_json(args.input)
+        graph_dd, edges_cost = get_graph_by_id(db, args.graph_id)
+        answers = create_answer_json(graph_dd, edges_cost, paths, cheapest_paths)
+        with open(args.output, "w") as handle:
+            json.dump(answers, handle)
+    except JSONDecodeError as e:
+        sys.exit(F"Error occurred when parsing {args.input}: {e.args}")
 
 
 def main():

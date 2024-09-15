@@ -3,4 +3,6 @@ __pycache__
 src/interview_test.egg-info
 output.json
 input.json
+graph.xml
 .Ds_Store
+.idea/Tucows Take Home Assignment.iml

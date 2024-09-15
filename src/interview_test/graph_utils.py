@@ -72,7 +72,7 @@ def validate_xml(contents):
 
 def find_all_paths(graph: defaultdict, start, end, path=None):
     """
-    Finds all paths between start and end node.
+    Finds all paths between start and end nodes.
     Args:
         :param graph: Dictionary of directed graph.
         Ex. {"a": ["b", "c"], "b": ["e"], "c": ["e"]}
@@ -98,7 +98,7 @@ def find_all_paths(graph: defaultdict, start, end, path=None):
 
 def find_cheapest_path(graph: defaultdict, edges_cost, start, end, path=None):
     """
-    Finds the cheapest path between start and end node.
+    Finds the cheapest path between start and end nodes.
     Args:
         :param graph: Dictionary of directed graph.
         Ex. {"a": ["b", "c"], "b": ["e"], "c": ["e"]}

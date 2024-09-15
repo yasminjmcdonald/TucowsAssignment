@@ -1,3 +1,4 @@
+import sys
 from collections import defaultdict
 
 from interview_test.models import Edge, Node, Graph
@@ -46,6 +47,8 @@ def get_graph_by_id(db, graph_id):
     graph = defaultdict(list)
     edges_cost = {}
     edges = db.query(Edge).filter(Edge.graph == graph_id).all()
+    if not edges:
+        sys.exit(F"Graph {graph_id} does not exist")
     for edge in edges:
         edges_cost[(edge.edge_from, edge.edge_to)] = edge.cost
         if edge.edge_from not in graph:
