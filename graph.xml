@@ -1,5 +1,5 @@
 <graph>
-    <id>g3</id>
+    <id>g4</id>
     <name>My Graph</name>
     <nodes>
         <node><id>a</id><name>A</name></node>
