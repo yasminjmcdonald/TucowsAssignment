@@ -10,8 +10,9 @@ def parse_query_json(input_file):
     Args:
         :param input_file: JSON file with queries.
     Returns:
-        paths: List of paths to query.
+        paths: List of paths to query. Ex. [["a", "d"], ["a", "e"]]
         cheapest_paths: List of cheapest paths to query.
+        Ex. [["a", "d"], ["a", "e"]]
     """
     with open(input_file, "r") as file:
         data = json.load(file)
@@ -30,14 +31,14 @@ def parse_query_json(input_file):
 def create_path_block(start, end, all_paths):
     """
     Creates path block for JSON output file.
-    Ex: {"paths": {"from": "a", "to": "b", "paths": [["a", "b"]]}}
     Args:
-        :param start: Start node of path.
-        :param end: End node of path.
-        :param all_paths: List of paths.
+        :param start: Start node of path. Ex. "a"
+        :param end: End node of path. Ex. "e"
+        :param all_paths: List of paths. [["a", "b", "e"], ["a", "d", "e"]]
     Returns:
         paths_block: JSON object with start node,
         end node, and all paths.
+        Ex: {"paths": {"from": "a", "to": "e", "paths": [["a", "b", "e"], ["a", "d", "e"]]}}
     """
     return {"paths": {"from": start, "to": end, "paths": all_paths}}
 
@@ -45,15 +46,14 @@ def create_path_block(start, end, all_paths):
 def create_cheapest_block(start, end, cheapest_path):
     """
     Creates path block for JSON output file.
-    Ex: {"cheapest": {"from": "a", "to": "b", "path": [["a", "b"]]}}
     Args:
-        :param start: Start node of path.
-        :param end: End node of path.
-        :param cheapest_path: Cheapest path between start.
-        node and end node.
+        :param start: Start node of path. Ex. "a"
+        :param end: End node of path. Ex. "e"
+        :param cheapest_path: Cheapest path to be queried. Ex. ["a", "e"]
     Returns:
         paths_block: JSON object with start node,
         end node, and cheapest path.
+         Ex: {"cheapest": {"from": "a", "to": "e", "path": [["a", "e"]]}}
     """
     if not cheapest_path:
         cheapest_path = False
@@ -67,10 +67,13 @@ def create_answer_json(graph_dd, edges_cost, paths, cheapest_paths):
     Lists. Returns answer JSON.
     Args:
         :param graph_dd: Dictionary of directed graph.
+         Ex. {"a": ["b", "c"], "b": ["e"], "c": ["e"]}
         :param edges_cost: Dictionary of edges and corresponding costs.
-        :param paths: List of paths to be queried.
+        Ex. {("a", "b"): 0.0, ("a", "c"): 0.42}
+        :param paths: List of paths to be queried. Ex. [["a", "e"], ["a", "d"]]
         node and end node.
         :param cheapest_paths: List of cheapest paths to be queried.
+        Ex. [["a", "d"], ["a", "e"]]
     Returns:
         answers: JSON object with answers
     """

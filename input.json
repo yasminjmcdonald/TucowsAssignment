@@ -2,8 +2,8 @@
    "queries":[
       {
          "paths":{
-            "start":"a",
-            "end":"b"
+            "start":"d",
+            "end":"d"
          }
       },
       {
@@ -14,8 +14,8 @@
       },
       {
          "cheapest":{
-            "start":"a",
-            "end":"h"
+            "start":"e",
+            "end":"a"
          }
       }
    ]

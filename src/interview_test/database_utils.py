@@ -10,8 +10,11 @@ def populate_database(db, graph, nodes, edges):
     Args:
         :param db: Database session object.
         :param graph: Dictionary with graph properties.
+        Ex. {"id": "g0", "name": "Graph Name"}
         :param nodes: List of dictionaries with node properties.
+        Ex. [{"id": "a", "graph": "g0", "name": "Graph Name"}]
         :param edges: List of dictionaries with edge properties.
+        Ex. [{"edge_to": "a", "edge_from": "b", "cost": 0.0, "id": "e1", "graph": "g0"}]
     Returns:
     """
     graph_model = Graph(**graph)
@@ -33,10 +36,12 @@ def get_graph_by_id(db, graph_id):
     dictionaries.
     Args:
         :param db: Database session object.
-        :param graph_id: ID of graph.
+        :param graph_id: ID of graph. Ex. "g0"
     Returns:
         graph: Dictionary of directed graph.
+        Ex. {"a": ["b", "c"], "b": ["e"], "c": ["e"]}
         edges_cost: Dictionary with graph edges and corresponding costs.
+        Ex. {("a", "b"): 0.0, ("a", "c"): 0.42}
     """
     graph = defaultdict(list)
     edges_cost = {}

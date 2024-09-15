@@ -23,8 +23,8 @@ class Node(Base):
 class Edge(Base):
     __tablename__ = "edges"
 
-    graph = Column(String, ForeignKey("graphs.id"), primary_key=True)
     id = Column(String, primary_key=True)
+    graph = Column(String, ForeignKey("graphs.id"), primary_key=True)
     edge_to = Column(String, ForeignKey("nodes.id"))
     edge_from = Column(String, ForeignKey("nodes.id"))
     cost = Column(Float)

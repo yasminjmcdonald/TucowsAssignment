@@ -22,9 +22,9 @@ def validate_xml(contents):
     root = tree.getroot()
 
     if root.find("id") is None:
-        raise XmlValidationError(f"id tag but not present in {contents}")
+        raise XmlValidationError(f"id tag not present in {contents}")
     if root.find("name") is None:
-        raise XmlValidationError(f"name tag but not present in {contents}")
+        raise XmlValidationError(f"name tag not present in {contents}")
 
     graph = {"id": root.find("id").text, "name": root.find("name").text}
     graph_id = graph.get("id")
@@ -75,11 +75,12 @@ def find_all_paths(graph: defaultdict, start, end, path=None):
     Finds all paths between start and end node.
     Args:
         :param graph: Dictionary of directed graph.
-        :param start: Start node.
-        :param end: End nodes.
+        Ex. {"a": ["b", "c"], "b": ["e"], "c": ["e"]}
+        :param start: Start node. Ex. "a"
+        :param end: End nodes. Ex. "e"
         :param path: Default None.
     Returns:
-        paths: List of paths.
+        paths: List of paths. Ex. [["a", "b", "e"], ["a", "c", "e"]]
     """
     if path is None:
         path = []
@@ -97,16 +98,18 @@ def find_all_paths(graph: defaultdict, start, end, path=None):
 
 def find_cheapest_path(graph: defaultdict, edges_cost, start, end, path=None):
     """
-    Find the cheapest path between start and end node.
+    Finds the cheapest path between start and end node.
     Args:
         :param graph: Dictionary of directed graph.
-        :param start: Start node.
-        :param end: End nodes.
+        Ex. {"a": ["b", "c"], "b": ["e"], "c": ["e"]}
+        :param start: Start node. Ex. "a"
+        :param end: End nodes. Ex. "e"
         :param edges_cost: Dictionary of edges and
-        corresponding costs.
+        corresponding costs. Ex. {("a", "b"): 0.0, ("a", "c"): 0.42}
         :param path: Default None.
     Returns:
-        shortest: [start, end] of cheapest path.
+        shortest: The cheapest path between the start and end node.
+        Ex. ["a", "b", "e"]
     """
     if path is None:
         path = []
