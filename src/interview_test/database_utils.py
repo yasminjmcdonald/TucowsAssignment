@@ -48,7 +48,7 @@ def get_graph_by_id(db, graph_id):
     edges_cost = {}
     edges = db.query(Edge).filter(Edge.graph == graph_id).all()
     if not edges:
-        sys.exit(F"Graph {graph_id} does not exist")
+        sys.exit(f"Graph {graph_id} does not exist")
     for edge in edges:
         edges_cost[(edge.edge_from, edge.edge_to)] = edge.cost
         if edge.edge_from not in graph:

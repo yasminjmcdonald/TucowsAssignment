@@ -7,147 +7,15 @@
          }
       },
       {
-         "paths":{
+         "cheapest":{
             "start":"a",
-            "end":"b"
-         }
-      },
-      {
-         "paths":{
-            "start":"a",
-            "end":"c"
+            "end":"a"
          }
       },
       {
          "paths":{
             "start":"a",
-            "end":"d"
-         }
-      },
-      {
-         "paths": {
-            "start": "a",
-            "end": "e"
-         }
-      },
-      {
-         "paths":{
-            "start":"b",
             "end":"a"
-         }
-      },
-      {
-         "paths":{
-            "start":"b",
-            "end":"b"
-         }
-      },
-      {
-         "paths":{
-            "start":"b",
-            "end":"c"
-         }
-      },
-      {
-         "paths":{
-            "start":"b",
-            "end":"d"
-         }
-      },
-      {
-         "paths": {
-            "start": "b",
-            "end": "e"
-         }
-      },
-      {
-         "paths":{
-            "start":"c",
-            "end":"a"
-         }
-      },
-      {
-         "paths":{
-            "start":"c",
-            "end":"b"
-         }
-      },
-      {
-         "paths":{
-            "start":"c",
-            "end":"c"
-         }
-      },
-      {
-         "paths":{
-            "start":"c",
-            "end":"d"
-         }
-      },
-      {
-         "paths":{
-            "start":"c",
-            "end":"e"
-         }
-      },
-      {
-         "paths":{
-            "start":"d",
-            "end":"a"
-         }
-      },
-      {
-         "paths":{
-            "start":"d",
-            "end":"b"
-         }
-      },
-      {
-         "paths":{
-            "start":"d",
-            "end":"c"
-         }
-      },
-      {
-         "paths":{
-            "start":"d",
-            "end":"d"
-         }
-      },
-      {
-         "paths":{
-            "start":"d",
-            "end":"e"
-         }
-      },
-            {
-         "paths":{
-            "start":"e",
-            "end":"a"
-         }
-      },
-      {
-         "paths":{
-            "start":"e",
-            "end":"b"
-         }
-      },
-      {
-         "paths":{
-            "start":"b",
-            "end":"c"
-         }
-      },
-      {
-         "paths":{
-            "start":"b",
-            "end":"d"
-         }
-      },
-      {
-         "paths":{
-            "start":"b",
-            "end":"e"
          }
       }
    ]

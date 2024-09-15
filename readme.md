@@ -21,8 +21,8 @@ source activate
 pip install -e .
 ```
 
-3. Add environment variable SQLALCHEMY_DATABASE_URL with database URL 
-(Ex. "postgresql://postgres:test1234@localhost/GraphApplicationDatabase")
+3. Add environment variable `SQLALCHEMY_DATABASE_URL` with database URL 
+(Ex. `postgresql://postgres:test1234@localhost/GraphApplicationDatabase`)
 
 ```
 export SQLALCHEMY_DATABASE_URL="postgresql://postgres:test1234@localhost/GraphApplicationDatabase"
@@ -31,17 +31,13 @@ export SQLALCHEMY_DATABASE_URL="postgresql://postgres:test1234@localhost/GraphAp
 4. To create the graphs, nodes, and edges tables in the database, run the following sql:
 
 ```
-DROP TABLE IF EXISTS graphs;
-
-CREATE TABLE graphs (
+CREATE TABLE IF NOT EXISTS graphs (
   id varchar(10),
   name varchar(20),
   PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS nodes;
-
-CREATE TABLE nodes (
+CREATE TABLE IF NOT EXISTS nodes (
   id varchar(10),
   name varchar(20),
   graph varchar(20),
@@ -49,9 +45,7 @@ CREATE TABLE nodes (
   PRIMARY KEY (id, graph)
 );
 
-DROP TABLE IF EXISTS edges;
-
-CREATE TABLE edges (
+CREATE TABLE IF NOT EXISTS edges (
   id varchar(10),
   edge_from varchar(10),
   edge_to varchar(10),
@@ -61,7 +55,7 @@ CREATE TABLE edges (
   FOREIGN KEY (edge_from, graph) REFERENCES nodes(id, graph),
   FOREIGN KEY (edge_to, graph) REFERENCES nodes(id, graph),
   PRIMARY KEY (id, graph)
-)
+);
 ```
 
 Execution 

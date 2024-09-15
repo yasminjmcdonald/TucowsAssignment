@@ -15,8 +15,8 @@ from interview_test.models import Edge, Node, Graph
 
 
 SQLALCHEMY_DATABASE_URL = os.environ.get(
-    'SQLALCHEMY_DATABASE_URL',
-    "postgresql://postgres:test1234@localhost/GraphApplicationDatabase"
+    "SQLALCHEMY_DATABASE_URL",
+    "postgresql://postgres:test1234@localhost/GraphApplicationDatabase",
 )
 
 
@@ -34,7 +34,7 @@ def load(db, args):
     except IntegrityError as e:
         sys.exit(e.orig)
     except ParseError as e:
-        sys.exit(F"Error occurred when parsing {args.input}: {e.msg}")
+        sys.exit(f"Error occurred when parsing {args.input}: {e.msg}")
 
 
 def query(db, args):
@@ -53,23 +53,27 @@ def query(db, args):
         with open(args.output, "w") as handle:
             json.dump(answers, handle)
     except JSONDecodeError as e:
-        sys.exit(F"Error occurred when parsing {args.input}: {e.args}")
+        sys.exit(f"Error occurred when parsing {args.input}: {e.args}")
 
 
 def main():
     parser = argparse.ArgumentParser()
     sub_cmds = parser.add_subparsers(required=True)
 
-    load_cmd = sub_cmds.add_parser('load', help='Loads graph data from XML into the database')
+    load_cmd = sub_cmds.add_parser(
+        "load", help="Loads graph data from XML into the database"
+    )
     load_cmd.set_defaults(func=load)
-    load_cmd.add_argument('input', help='graph XML input file')
+    load_cmd.add_argument("input", help="graph XML input file")
 
-    query_cmd = sub_cmds.add_parser('query', help='Queries the given graph with '
-                                                  'the paths provided in the input file')
+    query_cmd = sub_cmds.add_parser(
+        "query",
+        help="Queries the given graph with " "the paths provided in the input file",
+    )
     query_cmd.set_defaults(func=query)
-    query_cmd.add_argument('graph_id', help='Id of graph')
-    query_cmd.add_argument('input', help='JSON input file with queries')
-    query_cmd.add_argument('output', help='Name of JSON output file')
+    query_cmd.add_argument("graph_id", help="Id of graph")
+    query_cmd.add_argument("input", help="JSON input file with queries")
+    query_cmd.add_argument("output", help="Name of JSON output file")
 
     args = parser.parse_args()
 

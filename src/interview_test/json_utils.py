@@ -91,4 +91,3 @@ def create_answer_json(graph_dd, edges_cost, paths, cheapest_paths):
             create_cheapest_block(cheapest_path[0], cheapest_path[1], cheapest)
         )
     return answers
-
