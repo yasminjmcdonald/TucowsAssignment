@@ -16,7 +16,7 @@ from interview_test.models import Edge, Node, Graph
 
 SQLALCHEMY_DATABASE_URL = os.environ.get(
     "SQLALCHEMY_DATABASE_URL",
-    "postgresql://postgres:test1234@localhost/GraphApplicationDatabase",
+    "postgresql://postgres:test1234@localhost/GraphApplicationDatabase"
 )
 
 
@@ -39,7 +39,7 @@ def load(db, args):
 
 def query(db, args):
     """
-    Queries graph table with queries defined in JSON input file and creates
+    Queries graph table with queries defined in JSON input file and outputs
     JSON file with answers.
     Args:
         :param db: Database session object.

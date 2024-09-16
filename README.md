@@ -1,4 +1,4 @@
-PuppleAPI
+Tucows Assignment
 =========
 
 *Populates database tables graph, nodes, and edges with the information given a directed graph XML. 

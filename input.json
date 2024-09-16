@@ -7,15 +7,57 @@
          }
       },
       {
+         "paths":{
+            "start":"a",
+            "end":"b"
+         }
+      },
+      {
+         "paths":{
+            "start":"a",
+            "end":"c"
+         }
+      },
+      {
+         "paths":{
+            "start":"a",
+            "end":"d"
+         }
+      },
+      {
+         "paths": {
+            "start": "a",
+            "end": "e"
+         }
+      },
+      {
          "cheapest":{
             "start":"a",
             "end":"a"
          }
       },
       {
-         "paths":{
+         "cheapest":{
             "start":"a",
-            "end":"a"
+            "end":"b"
+         }
+      },
+      {
+         "cheapest":{
+            "start":"a",
+            "end":"c"
+         }
+      },
+      {
+         "cheapest":{
+            "start":"a",
+            "end":"d"
+         }
+      },
+      {
+         "cheapest":{
+            "start":"a",
+            "end":"e"
          }
       }
    ]

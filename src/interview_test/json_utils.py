@@ -45,7 +45,7 @@ def create_path_block(start, end, all_paths):
 
 def create_cheapest_block(start, end, cheapest_path):
     """
-    Creates path block for JSON output file.
+    Creates cheapest block for JSON output file.
     Args:
         :param start: Start node of path. Ex. "a"
         :param end: End node of path. Ex. "e"
@@ -62,8 +62,8 @@ def create_cheapest_block(start, end, cheapest_path):
 
 def create_answer_json(graph_dd, edges_cost, paths, cheapest_paths):
     """
-    Find all paths in from start to end node pairs in paths Lists.
-    Finds cheapest paths between start and end node pairs in cheapest_paths
+    Find all paths from start to end nodes in paths Lists.
+    Finds cheapest paths between start and end nodes in cheapest_paths
     Lists. Returns answer JSON.
     Args:
         :param graph_dd: Dictionary of directed graph.
@@ -71,7 +71,6 @@ def create_answer_json(graph_dd, edges_cost, paths, cheapest_paths):
         :param edges_cost: Dictionary of edges and corresponding costs.
         Ex. {("a", "b"): 0.0, ("a", "c"): 0.42}
         :param paths: List of paths to be queried. Ex. [["a", "e"], ["a", "d"]]
-        node and end node.
         :param cheapest_paths: List of cheapest paths to be queried.
         Ex. [["a", "d"], ["a", "e"]]
     Returns:
