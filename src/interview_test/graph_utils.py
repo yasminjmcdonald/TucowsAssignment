@@ -44,10 +44,10 @@ def validate_xml(contents):
     edges = []
 
     for edge in root.find("edges"):
-        if len(edge.findall("from")) > 1:
-            raise XmlValidationError("cannot have more than one 'from' tag in an edge")
-        if len(edge.findall("to")) > 1:
-            raise XmlValidationError("cannot have more than one 'to' tag in an edge")
+        if len(edge.findall("from")) != 1:
+            raise XmlValidationError("must have one from tag")
+        if len(edge.findall("to")) != 1:
+            raise XmlValidationError("must have one to tag")
         from_tag = edge.find("from").text
         to_tag = edge.find("to").text
         if from_tag not in node_ids:
