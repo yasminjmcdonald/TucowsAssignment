@@ -5,6 +5,8 @@ Tucows Assignment
 Queries the database tables with the query parameters given in a JSON input file. Returns a JSON file with 
 answers to the given queries.*
 
+To view the accompanying writeup, please see [writeup.md].
+
 Installation
 ------------
 
