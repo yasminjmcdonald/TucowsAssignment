@@ -1,4 +1,8 @@
-Database Design
+# Writeup
+
+This is the writeup for the questions from the Tucows assignment.
+
+## Database Design
 
 The database is made up of three tables: graphs, nodes, and edges. The graphs
 table has two columns, id and name, both of which are of type string. The id
@@ -25,20 +29,20 @@ nodes and edges belong to a graph that exists in the graphs table and that the
 nodes of an edge exist in the nodes table. If necessary, the graph XML can be
 reconstructed using the information provided in the three tables.
 
-XML Parser
+## XML Parser
 
 To parse the graph, the built-in xml library was used. For small amounts of
 validation, this library suffices. If more complicated validation was required,
 a library such as lxml would have been better as it includes a validating
 parser.
 
-JSON Parser
+## JSON Parser
 
 Json is a built-in Python library that also requires no additional
 installation. It is user-friendly and can easily convert between JSON data and
 Python objects, which was necessary for this assignment.
 
-Find All Paths
+## Find All Paths
 
 To find all paths between two nodes, I've created a function that takes in a
 graph of type default dictionary, a start node, an end node, and a path
@@ -52,7 +56,7 @@ calls the function with a new start node. The function recurses until the stop
 condition is met where the start node equals the end node. The function will
 return all paths that exist between the start node and end excluding cycles.
 
-Find Cheapest Path
+## Find Cheapest Path
 
 To find the cheapest path between a start node and an end node, another
 recursive function was created which follows a similar DFS pattern as the
@@ -62,7 +66,7 @@ was done by passing in an edges_cost dictionary with key-value pairs of edges
 and costs. The function will return the cheapest path between the start node
 and the end node.
 
-Input/Output
+## Input/Output
 
 I decided to use command line arguments instead of standard input and standard
 output to make testing easier. I also believe it is more user-friendly.
