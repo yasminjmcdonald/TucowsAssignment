@@ -33,7 +33,7 @@ def populate_database(db, graph, nodes, edges):
 
 def get_graph_by_id(db, graph_id):
     """
-    Queries graphs table by graph_id and returns two
+    Queries edges table by graph_id and returns two
     dictionaries.
     Args:
         :param db: Database session object.
