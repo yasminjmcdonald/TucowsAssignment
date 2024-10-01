@@ -4,5 +4,6 @@ src/interview_test.egg-info
 output.json
 input.json
 graph.xml
+is_cycle.py
 .Ds_Store
 .idea/Tucows Take Home Assignment.iml

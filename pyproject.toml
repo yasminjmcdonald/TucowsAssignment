@@ -11,9 +11,6 @@ dependencies = [
     "typing_extensions==4.12.2"
 ]
 
-[project.optional-dependencies]
-test = []
-
 [project.scripts]
 interview_test = "interview_test:main"
 
@@ -22,5 +19,3 @@ version_file = "src/interview_test/version.py"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-# exclude = ["interview_test.tests*"]
-

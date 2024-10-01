@@ -18,6 +18,8 @@ def populate_database(db, graph, nodes, edges):
         Ex. [{"edge_to": "a", "edge_from": "b", "cost": 0.0, "id": "e1", "graph": "g0"}]
     Returns:
     """
+    # Change code here to add all if we add graph but fail to add edges and
+    # nodes and rerun the graph, we will see issues because graph id needs to be unique
     graph_model = Graph(**graph)
     db.add(graph_model)
     db.commit()
