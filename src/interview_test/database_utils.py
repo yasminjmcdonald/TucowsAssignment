@@ -22,15 +22,15 @@ def populate_database(db, graph, nodes, edges):
     # nodes and rerun the graph, we will see issues because graph id needs to be unique
     graph_model = Graph(**graph)
     db.add(graph_model)
-    db.commit()
+    db.begin_nested()
     for node in nodes:
         node_model = Node(**node)
         db.add(node_model)
-        db.commit()
+    db.begin_nested()
     for edge in edges:
         edge_model = Edge(**edge)
         db.add(edge_model)
-        db.commit()
+    db.commit()
 
 
 def get_graph_by_id(db, graph_id):
